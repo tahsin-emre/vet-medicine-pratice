@@ -1,0 +1,37 @@
+name: veterinarypratice
+description: SWE212 Veterinary Medicine Practice
+publish_to: 'none'
+version: 1.0.0+1
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  mobx:
+  flutter_mobx: 
+  dio:
+  url_strategy:
+  url_launcher:
+  firebase_core:
+  firebase_auth:
+  cloud_firestore:
+  firebase_storage: 
+  flutter_spinkit: 
+  responsive_builder:
+  line_icons:
+  font_awesome_flutter: 
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.1
+  mobx_codegen: ^2.0.7
+  build_runner: ^2.2.0
+  flutter_gen:
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/

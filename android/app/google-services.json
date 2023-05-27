@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "927946931673",
+    "project_id": "swe212myvet",
+    "storage_bucket": "swe212myvet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927946931673:android:c304830b018952a5cb2dc8",
+        "android_client_info": {
+          "package_name": "com.tahsinemre.veterinarypratice"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6mB8D_3NGmwhBx_CagSz150Z-mrCNww0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
