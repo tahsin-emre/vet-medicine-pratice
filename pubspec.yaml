@@ -17,6 +17,7 @@ dependencies:
   firebase_auth:
   cloud_firestore:
   firebase_storage: 
+  shared_preferences: 
   flutter_spinkit: 
   responsive_builder:
   line_icons:
