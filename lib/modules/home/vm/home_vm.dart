@@ -3,4 +3,7 @@ part 'home_vm.g.dart';
 
 class HomeVM = HomeVMBase with _$HomeVM;
 
-abstract class HomeVMBase with Store {}
+abstract class HomeVMBase with Store {
+  @observable
+  int index = 0;
+}

@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       scrollBehavior: AppScrollBehavior(),
-      title: 'SWE212 Vet-Medicine Mock-Up',
+      title: 'Mock-Up Veterinary Web',
       home: LoginView(),
     );
   }

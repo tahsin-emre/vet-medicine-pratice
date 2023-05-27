@@ -10,9 +10,9 @@ abstract class LoginVMBase with Store {
   @observable
   bool isLoading = false;
   @observable
-  TextEditingController emailCont = TextEditingController();
+  TextEditingController emailCont = TextEditingController(text: 'telli@tahsinemre.com');
   @observable
-  TextEditingController passCont = TextEditingController();
+  TextEditingController passCont = TextEditingController(text: 'password');
 
   @action
   Future<Result> login() async {
