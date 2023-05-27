@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:veterinarypratice/enums/result.dart';
+import 'package:veterinarypratice/services/animal_service.dart';
 import 'package:veterinarypratice/services/auth_service.dart';
+import 'package:veterinarypratice/services/customer_service.dart';
 part 'login_vm.g.dart';
 
 class LoginVM = LoginVMBase with _$LoginVM;
@@ -18,6 +20,10 @@ abstract class LoginVMBase with Store {
   Future<Result> login() async {
     isLoading = true;
     Result result = await AuthService.login(emailCont.text, passCont.text);
+    if (result == Result.okay) {
+      await CustomerService.getCustomers();
+      await AnimalService.getAnimals();
+    }
     isLoading = false;
     return result;
   }

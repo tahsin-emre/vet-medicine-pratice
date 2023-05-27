@@ -15,4 +15,8 @@ class CustomerModel {
     email = data['email'] ?? '';
     citizenId = data['citizenId'] ?? '';
   }
+
+  CustomerModel.none() {
+    name = 'Unregistered Customer';
+  }
 }

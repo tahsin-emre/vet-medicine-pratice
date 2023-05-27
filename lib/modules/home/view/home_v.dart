@@ -13,7 +13,10 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(centerTitle: false),
+      appBar: AppBar(
+        centerTitle: false,
+        title: const Text('Veterinary Medicine'),
+      ),
       body: ScreenTypeLayout.builder(
         mobile: (context) => mobile(context),
         desktop: (context) => Row(
@@ -28,16 +31,18 @@ class HomeView extends StatelessWidget {
   }
 
   Widget mobile(BuildContext context) {
-    switch (vm.index) {
-      case 0:
-        return DashboardView();
-      case 1:
-        return CustomerListView();
-      case 2:
-        return AnimalListView();
-      default:
-        return Container();
-    }
+    return Observer(builder: (context) {
+      switch (vm.index) {
+        case 0:
+          return DashboardView();
+        case 1:
+          return CustomerListView();
+        case 2:
+          return AnimalListView();
+        default:
+          return Container();
+      }
+    });
   }
 
   Widget rail() {
