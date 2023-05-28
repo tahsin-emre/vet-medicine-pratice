@@ -17,7 +17,10 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text('Veterinary Medicine'),
+        title: const Text('Mock-Up Veterinary Medicine'),
+      ),
+      drawer: ScreenTypeLayout.builder(
+        mobile: (p0) => drawer(),
       ),
       body: ScreenTypeLayout.builder(
         mobile: (context) => mobile(context),
@@ -49,6 +52,12 @@ class HomeView extends StatelessWidget {
           return Container();
       }
     });
+  }
+
+  Widget drawer() {
+    return Drawer(
+      child: rail(),
+    );
   }
 
   Widget rail() {

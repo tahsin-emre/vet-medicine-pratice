@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:veterinarypratice/models/customer_model.dart';
+import 'package:veterinarypratice/modules/customers/view/customer_detail_v.dart';
 import 'package:veterinarypratice/modules/customers/vm/customer_list_vm.dart';
 import 'package:veterinarypratice/ui/mywid_loading.dart';
 import 'package:veterinarypratice/ui/mywid_tf.dart';
@@ -31,7 +32,10 @@ class CustomerListView extends StatelessWidget {
 
   Widget customerTile(BuildContext context, CustomerModel customer) {
     return ListTile(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => CustomerDetailView(customer)));
+      },
       leading: const Icon(Icons.person),
       trailing: const Icon(Icons.arrow_forward_ios),
       title: Text(customer.name),
