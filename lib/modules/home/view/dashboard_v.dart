@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:veterinarypratice/modules/home/vm/dashboard_vm.dart';
 import 'package:veterinarypratice/services/animal_service.dart';
 import 'package:veterinarypratice/services/customer_service.dart';
+import 'package:veterinarypratice/services/reservation_service.dart';
+import 'package:veterinarypratice/services/veterinarian_service.dart';
 
 class DashboardView extends StatelessWidget {
   final DashboardVM vm = DashboardVM();
@@ -19,6 +21,16 @@ class DashboardView extends StatelessWidget {
             ),
             Expanded(
               child: detailBox('Animals', AnimalService.animalList.length),
+            )
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(
+              child: detailBox('Veterinarians', VeterinarianService.veterinarianList.length),
+            ),
+            Expanded(
+              child: detailBox('Reservations', ReservationService.reservationList.length),
             )
           ],
         ),

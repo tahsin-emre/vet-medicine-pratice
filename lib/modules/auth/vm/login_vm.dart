@@ -4,6 +4,8 @@ import 'package:veterinarypratice/enums/result.dart';
 import 'package:veterinarypratice/services/animal_service.dart';
 import 'package:veterinarypratice/services/auth_service.dart';
 import 'package:veterinarypratice/services/customer_service.dart';
+import 'package:veterinarypratice/services/reservation_service.dart';
+import 'package:veterinarypratice/services/veterinarian_service.dart';
 part 'login_vm.g.dart';
 
 class LoginVM = LoginVMBase with _$LoginVM;
@@ -23,6 +25,8 @@ abstract class LoginVMBase with Store {
     if (result == Result.okay) {
       await CustomerService.getCustomers();
       await AnimalService.getAnimals();
+      await VeterinarianService.getVeterinarians();
+      await ReservationService.getReservations();
     }
     isLoading = false;
     return result;

@@ -19,4 +19,8 @@ class AnimalModel {
   }
 
   AnimalModel.fromUser(this.name, this.type, this.ownerId);
+
+  AnimalModel.none() {
+    name = 'Unregistered Animal';
+  }
 }
