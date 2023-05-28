@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:veterinarypratice/constants/animal_types.dart';
+import 'package:veterinarypratice/extensions/cont_ext.dart';
 import 'package:veterinarypratice/models/animal_model.dart';
+import 'package:veterinarypratice/models/customer_model.dart';
 import 'package:veterinarypratice/modules/animals/vm/animal_list_vm.dart';
+import 'package:veterinarypratice/services/customer_service.dart';
 import 'package:veterinarypratice/ui/mywid_loading.dart';
 import 'package:veterinarypratice/ui/mywid_tf.dart';
+import 'package:searchfield/searchfield.dart';
 
 class AnimalListView extends StatelessWidget {
   final AnimalListVM vm = AnimalListVM();
@@ -75,8 +80,8 @@ class AnimalListView extends StatelessWidget {
                     onPressed: () {
                       AnimalModel animal = AnimalModel.fromUser(
                         nameCont.text,
-                        ownerCont.text,
                         typeCont.text,
+                        ownerCont.toCustomerId(),
                       );
                       vm.addAnimal(animal);
                       Navigator.pop(diaCont);
@@ -88,6 +93,36 @@ class AnimalListView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     myWidTF(nameCont, 'Name'),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                      child: SearchField<CustomerModel>(
+                        controller: ownerCont,
+                        searchInputDecoration: const InputDecoration(
+                            border: OutlineInputBorder(), labelText: 'Customer'),
+                        suggestions: [
+                          ...CustomerService.customerList.map((e) => SearchFieldListItem(e.name,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(e.name),
+                              )))
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+                      child: SearchField<String>(
+                        controller: typeCont,
+                        searchInputDecoration:
+                            const InputDecoration(border: OutlineInputBorder(), labelText: 'Type'),
+                        suggestions: [
+                          ...animalTypes.map((e) => SearchFieldListItem(e,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(e),
+                              )))
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               );

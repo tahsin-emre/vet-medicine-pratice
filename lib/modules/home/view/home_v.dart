@@ -5,6 +5,8 @@ import 'package:veterinarypratice/modules/animals/view/animal_list_v.dart';
 import 'package:veterinarypratice/modules/customers/view/customer_list_v.dart';
 import 'package:veterinarypratice/modules/home/view/dashboard_v.dart';
 import 'package:veterinarypratice/modules/home/vm/home_vm.dart';
+import 'package:veterinarypratice/modules/reservations/view/reservation_list_v.dart';
+import 'package:veterinarypratice/modules/veterinarians/view/veterinarian_list_v.dart';
 
 class HomeView extends StatelessWidget {
   final HomeVM vm = HomeVM();
@@ -39,6 +41,10 @@ class HomeView extends StatelessWidget {
           return CustomerListView();
         case 2:
           return AnimalListView();
+        case 3:
+          return VeterinarianListView();
+        case 4:
+          return ReservationListView();
         default:
           return Container();
       }
@@ -55,6 +61,8 @@ class HomeView extends StatelessWidget {
             railTile(0, Icons.dashboard, 'Dashboard'),
             railTile(1, Icons.people, 'Customers'),
             railTile(2, Icons.pets, 'Animals'),
+            railTile(3, Icons.health_and_safety, 'Veterinarians'),
+            railTile(4, Icons.calendar_month, 'Reservations'),
           ],
         ),
       );
