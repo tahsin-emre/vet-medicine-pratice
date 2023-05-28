@@ -9,6 +9,22 @@ part of 'animal_list_vm.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
 mixin _$AnimalListVM on AnimalListVMBase, Store {
+  late final _$isLoadingAtom =
+      Atom(name: 'AnimalListVMBase.isLoading', context: context);
+
+  @override
+  bool get isLoading {
+    _$isLoadingAtom.reportRead();
+    return super.isLoading;
+  }
+
+  @override
+  set isLoading(bool value) {
+    _$isLoadingAtom.reportWrite(value, super.isLoading, () {
+      super.isLoading = value;
+    });
+  }
+
   late final _$animalsAtom =
       Atom(name: 'AnimalListVMBase.animals', context: context);
 
@@ -23,6 +39,29 @@ mixin _$AnimalListVM on AnimalListVMBase, Store {
     _$animalsAtom.reportWrite(value, super.animals, () {
       super.animals = value;
     });
+  }
+
+  late final _$contAtom = Atom(name: 'AnimalListVMBase.cont', context: context);
+
+  @override
+  TextEditingController get cont {
+    _$contAtom.reportRead();
+    return super.cont;
+  }
+
+  @override
+  set cont(TextEditingController value) {
+    _$contAtom.reportWrite(value, super.cont, () {
+      super.cont = value;
+    });
+  }
+
+  late final _$addAnimalAsyncAction =
+      AsyncAction('AnimalListVMBase.addAnimal', context: context);
+
+  @override
+  Future<dynamic> addAnimal(AnimalModel model) {
+    return _$addAnimalAsyncAction.run(() => super.addAnimal(model));
   }
 
   late final _$AnimalListVMBaseActionController =
@@ -40,9 +79,22 @@ mixin _$AnimalListVM on AnimalListVMBase, Store {
   }
 
   @override
+  void query(String query) {
+    final _$actionInfo = _$AnimalListVMBaseActionController.startAction(
+        name: 'AnimalListVMBase.query');
+    try {
+      return super.query(query);
+    } finally {
+      _$AnimalListVMBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-animals: ${animals}
+isLoading: ${isLoading},
+animals: ${animals},
+cont: ${cont}
     ''';
   }
 }

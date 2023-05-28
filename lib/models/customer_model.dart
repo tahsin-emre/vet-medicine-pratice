@@ -19,4 +19,6 @@ class CustomerModel {
   CustomerModel.none() {
     name = 'Unregistered Customer';
   }
+
+  CustomerModel.fromUser(this.name, this.phone, this.email, this.citizenId);
 }

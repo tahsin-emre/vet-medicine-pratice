@@ -17,4 +17,6 @@ class AnimalModel {
     type = data['type'] ?? '';
     customer = ownerId.toCustomer();
   }
+
+  AnimalModel.fromUser(this.name, this.type, this.ownerId);
 }

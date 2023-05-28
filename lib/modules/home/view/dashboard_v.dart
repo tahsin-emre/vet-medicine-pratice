@@ -28,8 +28,8 @@ class DashboardView extends StatelessWidget {
 
   Widget detailBox(String label, int value) {
     return Container(
-      decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(10)), color: Colors.grey),
+      decoration: BoxDecoration(
+          borderRadius: const BorderRadius.all(Radius.circular(10)), color: Colors.grey.shade400),
       height: 200,
       margin: const EdgeInsets.all(10),
       child: Column(
