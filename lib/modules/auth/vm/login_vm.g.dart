@@ -65,6 +65,20 @@ mixin _$LoginVM on LoginVMBase, Store {
     return _$loginAsyncAction.run(() => super.login());
   }
 
+  late final _$LoginVMBaseActionController =
+      ActionController(name: 'LoginVMBase', context: context);
+
+  @override
+  void getPrefs() {
+    final _$actionInfo =
+        _$LoginVMBaseActionController.startAction(name: 'LoginVMBase.getPrefs');
+    try {
+      return super.getPrefs();
+    } finally {
+      _$LoginVMBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
   @override
   String toString() {
     return '''

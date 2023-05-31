@@ -11,4 +11,10 @@ class UserModel {
     email = data['email'] ?? '';
     name = data['name'] ?? '';
   }
+
+  UserModel.logout() {
+    id = '';
+    email = '';
+    name = '';
+  }
 }

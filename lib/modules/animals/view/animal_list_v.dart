@@ -4,6 +4,7 @@ import 'package:veterinarypratice/constants/animal_types.dart';
 import 'package:veterinarypratice/extensions/cont_ext.dart';
 import 'package:veterinarypratice/models/animal_model.dart';
 import 'package:veterinarypratice/models/customer_model.dart';
+import 'package:veterinarypratice/modules/animals/view/animal_detail_v.dart';
 import 'package:veterinarypratice/modules/animals/vm/animal_list_vm.dart';
 import 'package:veterinarypratice/services/customer_service.dart';
 import 'package:veterinarypratice/ui/mywid_loading.dart';
@@ -36,7 +37,9 @@ class AnimalListView extends StatelessWidget {
 
   Widget animalTile(BuildContext context, AnimalModel animal) {
     return ListTile(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (p0) => AnimalDetailView(animal)));
+      },
       leading: const Icon(Icons.pets),
       trailing: const Icon(Icons.arrow_forward_ios),
       title: Text(animal.name),

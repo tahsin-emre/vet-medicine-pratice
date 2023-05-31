@@ -2,29 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:searchfield/searchfield.dart';
-import 'package:veterinarypratice/constants/animal_types.dart';
 import 'package:veterinarypratice/extensions/cont_ext.dart';
 import 'package:veterinarypratice/extensions/string_ext.dart';
 import 'package:veterinarypratice/models/animal_model.dart';
 import 'package:veterinarypratice/models/customer_model.dart';
 import 'package:veterinarypratice/models/reservation_model.dart';
-import 'package:veterinarypratice/modules/customers/vm/customer_detail_vm.dart';
-import 'package:veterinarypratice/services/animal_service.dart';
+import 'package:veterinarypratice/modules/animals/vm/animal_detail_vm.dart';
 import 'package:veterinarypratice/services/veterinarian_service.dart';
 import 'package:veterinarypratice/ui/mywid_loading.dart';
-import 'package:veterinarypratice/ui/mywid_tf.dart';
 
-class CustomerDetailView extends StatelessWidget {
-  final CustomerDetailVM vm = CustomerDetailVM();
-  final CustomerModel customer;
-  CustomerDetailView(this.customer, {super.key});
+class AnimalDetailView extends StatelessWidget {
+  final AnimalDetailVM vm = AnimalDetailVM();
+  final AnimalModel animal;
+  AnimalDetailView(this.animal, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    vm.setAnimals();
     vm.setReservations();
     return Scaffold(
-      appBar: AppBar(title: const Text('Customer Details')),
+      appBar: AppBar(title: const Text('Animal Details')),
       body: ScreenTypeLayout.builder(
         mobile: (p0) => mobile(p0),
         desktop: (p0) => Row(
@@ -47,13 +43,11 @@ class CustomerDetailView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const Text('Details', style: TextStyle(fontSize: 20)),
-                    dataForm(customer.id, 'ID'),
-                    dataForm(customer.name, 'Name'),
-                    dataForm(customer.phone, 'Phone'),
-                    dataForm(customer.email, 'E-Mail'),
-                    dataForm(customer.citizenId, 'Citizen Id'),
+                    dataForm(animal.id, 'ID'),
+                    dataForm(animal.name, 'Name'),
+                    dataForm(animal.type, 'Type'),
                     const Divider(),
-                    animals(_),
+                    customer(),
                     const Divider(),
                     reservations(_),
                   ],
@@ -76,69 +70,16 @@ class CustomerDetailView extends StatelessWidget {
     );
   }
 
-  Widget animals(BuildContext context) {
+  Widget customer() {
+    CustomerModel owner = animal.customer;
     return Column(
       children: [
-        const Text('Animals', style: TextStyle(fontSize: 20)),
-        addAnimal(context),
-        ...vm.animals.where((element) => element.ownerId == customer.id).map((e) => animalTile(e)),
+        const Text('Customer Info', style: TextStyle(fontSize: 20)),
+        dataForm(owner.name, 'Name'),
+        dataForm(owner.phone, 'Phone'),
+        dataForm(owner.email, 'E-Mail'),
+        dataForm(owner.citizenId, 'Citizen Id'),
       ],
-    );
-  }
-
-  Widget animalTile(AnimalModel animal) {
-    return ListTile(
-      title: Text(animal.name),
-      subtitle: Text(animal.type),
-    );
-  }
-
-  Widget addAnimal(BuildContext context) {
-    TextEditingController nameCont = TextEditingController();
-    TextEditingController typeCont = TextEditingController();
-    return ListTile(
-      onTap: () async {
-        await showDialog(
-            context: context,
-            builder: (diaCont) {
-              return AlertDialog(
-                actions: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      AnimalModel animal =
-                          AnimalModel.fromUser(nameCont.text, typeCont.text, customer.id);
-                      await vm.addAnimal(animal).then((value) => Navigator.pop(diaCont));
-                    },
-                    child: const Text('Save'),
-                  ),
-                ],
-                content: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    myWidTF(nameCont, 'Name'),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                      child: SearchField<String>(
-                        controller: typeCont,
-                        searchInputDecoration:
-                            const InputDecoration(border: OutlineInputBorder(), labelText: 'Type'),
-                        suggestions: [
-                          ...animalTypes.map((e) => SearchFieldListItem(e,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(e),
-                              )))
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            });
-        vm.setAnimals();
-      },
-      leading: const Icon(Icons.add),
-      title: const Text('Add an Animal'),
     );
   }
 
@@ -148,7 +89,7 @@ class CustomerDetailView extends StatelessWidget {
         const Text('Reservations', style: TextStyle(fontSize: 20)),
         addReservation(context),
         ...vm.reservations
-            .where((element) => element.customerId == customer.id)
+            .where((element) => element.animalId == animal.id)
             .map((e) => reservationTile(e)),
       ],
     );
@@ -156,15 +97,13 @@ class CustomerDetailView extends StatelessWidget {
 
   Widget reservationTile(ReservationModel reservation) {
     return ListTile(
-      title: Text(reservation.animalId.toAnimal().name),
+      title: Text(reservation.veterinarianId.toVeterinarian().name),
       trailing: Text(reservation.date.toString().substring(0, 16)),
-      subtitle: Text(reservation.veterinarianId.toVeterinarian().name),
     );
   }
 
   Widget addReservation(BuildContext context) {
     TextEditingController veterinarianCont = TextEditingController();
-    TextEditingController animalCont = TextEditingController();
     return ListTile(
       onTap: () async {
         await showDialog(
@@ -175,9 +114,9 @@ class CustomerDetailView extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {
                       ReservationModel reservation = ReservationModel.fromUser(
-                          customer.id,
+                          animal.ownerId,
                           veterinarianCont.toVeterinarianId(),
-                          animalCont.toAnimalId(),
+                          animal.id,
                           DateTime(vm.resDate.year, vm.resDate.month, vm.resDate.day,
                               vm.resTime.hour, vm.resTime.minute));
                       vm.addReservation(reservation);
@@ -198,23 +137,6 @@ class CustomerDetailView extends StatelessWidget {
                               border: OutlineInputBorder(), labelText: 'Veterinarian'),
                           suggestions: [
                             ...VeterinarianService.veterinarianList
-                                .map((e) => SearchFieldListItem(e.name,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(e.name),
-                                    )))
-                          ],
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
-                        child: SearchField<String>(
-                          controller: animalCont,
-                          searchInputDecoration: const InputDecoration(
-                              border: OutlineInputBorder(), labelText: 'Animal'),
-                          suggestions: [
-                            ...AnimalService.animalList
-                                .where((element) => element.ownerId == customer.id)
                                 .map((e) => SearchFieldListItem(e.name,
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),

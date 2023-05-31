@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:veterinarypratice/modules/animals/view/animal_list_v.dart';
+import 'package:veterinarypratice/modules/auth/view/login_v.dart';
 import 'package:veterinarypratice/modules/customers/view/customer_list_v.dart';
 import 'package:veterinarypratice/modules/home/view/dashboard_v.dart';
 import 'package:veterinarypratice/modules/home/vm/home_vm.dart';
 import 'package:veterinarypratice/modules/reservations/view/reservation_list_v.dart';
 import 'package:veterinarypratice/modules/veterinarians/view/veterinarian_list_v.dart';
+import 'package:veterinarypratice/services/auth_service.dart';
 
 class HomeView extends StatelessWidget {
   final HomeVM vm = HomeVM();
@@ -26,8 +28,8 @@ class HomeView extends StatelessWidget {
         mobile: (context) => mobile(context),
         desktop: (context) => Row(
           children: [
-            Expanded(child: rail()),
-            SizedBox(width: 900, child: mobile(context)),
+            Expanded(child: navRail()),
+            SizedBox(width: 1050, child: mobile(context)),
             Expanded(child: Container()),
           ],
         ),
@@ -56,40 +58,40 @@ class HomeView extends StatelessWidget {
 
   Widget drawer() {
     return Drawer(
-      child: rail(),
+      child: navRail(),
     );
   }
 
-  Widget rail() {
+  Widget navRail() {
     return Observer(builder: (_) {
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            railTile(0, Icons.dashboard, 'Dashboard'),
-            railTile(1, Icons.people, 'Customers'),
-            railTile(2, Icons.pets, 'Animals'),
-            railTile(3, Icons.health_and_safety, 'Veterinarians'),
-            railTile(4, Icons.calendar_month, 'Reservations'),
-          ],
-        ),
+      return NavigationRail(
+        onDestinationSelected: (value) => vm.index = value,
+        useIndicator: true,
+        extended: true,
+        destinations: [
+          navRailTile('Dashboard', Icons.dashboard),
+          navRailTile('Customers', Icons.people),
+          navRailTile('Animals', Icons.pets),
+          navRailTile('Veterinarians', Icons.health_and_safety),
+          navRailTile('Reservations', Icons.calendar_month),
+        ],
+        trailing: ElevatedButton.icon(
+            icon: const Icon(Icons.power_settings_new),
+            onPressed: () async {
+              AuthService.logout().then((value) => Navigator.pushAndRemoveUntil(
+                  _, MaterialPageRoute(builder: (cont) => LoginView()), (route) => false));
+            },
+            label: const Text('Logout')),
+        selectedIndex: vm.index,
       );
     });
   }
 
-  Widget railTile(int index, IconData icon, String label) {
-    return Container(
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.symmetric(vertical: 3),
-      child: TextButton.icon(
-        style: ButtonStyle(
-          foregroundColor: MaterialStatePropertyAll(vm.index == index ? Colors.blue : Colors.black),
-        ),
-        onPressed: () => vm.index = index,
-        icon: Icon(icon),
-        label: Text(label),
-      ),
+  NavigationRailDestination navRailTile(String label, IconData icon) {
+    return NavigationRailDestination(
+      selectedIcon: Icon(icon, color: Colors.black),
+      icon: Icon(icon),
+      label: Text(label),
     );
   }
 }

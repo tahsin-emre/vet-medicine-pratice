@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:veterinarypratice/models/veterinarian_model.dart';
+import 'package:veterinarypratice/modules/veterinarians/view/veterinarian_detail_v.dart';
 import 'package:veterinarypratice/modules/veterinarians/vm/veterinarian_list_vm.dart';
 import 'package:veterinarypratice/ui/mywid_loading.dart';
 import 'package:veterinarypratice/ui/mywid_tf.dart';
@@ -31,7 +32,10 @@ class VeterinarianListView extends StatelessWidget {
 
   Widget veterinarianTile(BuildContext context, VeterinarianModel veterinarian) {
     return ListTile(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (p0) => VeterinarianDetailView(veterinarian)));
+      },
       leading: const Icon(Icons.person_4),
       trailing: const Icon(Icons.arrow_forward_ios),
       title: Text(veterinarian.name),

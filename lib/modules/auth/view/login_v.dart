@@ -14,10 +14,11 @@ class LoginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    vm.getPrefs();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Log In'),
+        title: const Text('Veterinary Medicine'),
       ),
       body: ScreenTypeLayout.builder(
         mobile: (context) => mobile(context),
@@ -31,30 +32,45 @@ class LoginView extends StatelessWidget {
   }
 
   Widget mobile(BuildContext context) {
-    return Observer(builder: (_) {
-      return vm.isLoading
-          ? myWidLoading()
-          : Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                myWidTF(vm.emailCont, 'E-Mail'),
-                myWidTF(vm.passCont, 'Password'),
-                ElevatedButton.icon(
-                  onPressed: () {
-                    vm.login().then((value) {
-                      if (value == Result.error) {
-                        showSnack(context, 'E-Mail and Password does not match.');
-                      } else {
-                        Navigator.pushAndRemoveUntil(context,
-                            MaterialPageRoute(builder: (context) => HomeView()), (route) => false);
-                      }
-                    });
-                  },
-                  icon: const Icon(Icons.arrow_forward_ios),
-                  label: const Text('Log In'),
-                )
-              ],
-            );
-    });
+    return Center(
+      child: Observer(builder: (_) {
+        return vm.isLoading
+            ? myWidLoading()
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Text('LOGIN TO YOUR ACCOUNT',
+                      style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
+                  const SizedBox(height: 10),
+                  myWidTF(vm.emailCont, 'E-Mail'),
+                  myWidTF(vm.passCont, 'Password'),
+                  Row(
+                    children: [
+                      TextButton(
+                        onPressed: () {},
+                        child: const Text('Forgot My Password'),
+                      ),
+                    ],
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      vm.login().then((value) {
+                        if (value == Result.error) {
+                          showSnack(context, 'E-Mail and Password does not match.');
+                        } else {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (context) => HomeView()),
+                              (route) => false);
+                        }
+                      });
+                    },
+                    icon: const Icon(Icons.arrow_forward_ios),
+                    label: const Text('Login'),
+                  )
+                ],
+              );
+      }),
+    );
   }
 }

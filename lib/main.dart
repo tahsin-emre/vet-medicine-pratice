@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:veterinarypratice/gitsecret/firebase_options.dart';
 import 'package:veterinarypratice/modules/auth/view/login_v.dart';
+import 'package:veterinarypratice/services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setPathUrlStrategy();
+  await AuthService.getPreferences();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

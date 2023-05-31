@@ -14,15 +14,17 @@ abstract class LoginVMBase with Store {
   @observable
   bool isLoading = false;
   @observable
-  TextEditingController emailCont = TextEditingController(text: 'telli@tahsinemre.com');
+  TextEditingController emailCont = TextEditingController();
   @observable
-  TextEditingController passCont = TextEditingController(text: 'password');
+  TextEditingController passCont = TextEditingController();
 
   @action
   Future<Result> login() async {
     isLoading = true;
     Result result = await AuthService.login(emailCont.text, passCont.text);
     if (result == Result.okay) {
+      AuthService.prefs!.setString('email', emailCont.text);
+      AuthService.prefs!.setString('password', passCont.text);
       await CustomerService.getCustomers();
       await AnimalService.getAnimals();
       await VeterinarianService.getVeterinarians();
@@ -30,5 +32,11 @@ abstract class LoginVMBase with Store {
     }
     isLoading = false;
     return result;
+  }
+
+  @action
+  void getPrefs() {
+    emailCont.text = AuthService.prefs!.getString('email') ?? 'telli@tahsinemre.com';
+    passCont.text = AuthService.prefs!.getString('password') ?? 'password';
   }
 }

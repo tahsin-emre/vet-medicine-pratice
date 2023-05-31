@@ -5,6 +5,7 @@ import 'package:veterinarypratice/extensions/cont_ext.dart';
 import 'package:veterinarypratice/extensions/string_ext.dart';
 import 'package:veterinarypratice/models/customer_model.dart';
 import 'package:veterinarypratice/models/reservation_model.dart';
+import 'package:veterinarypratice/modules/reservations/view/reservation_detail_v.dart';
 import 'package:veterinarypratice/modules/reservations/vm/reservation_list_vm.dart';
 import 'package:veterinarypratice/services/animal_service.dart';
 import 'package:veterinarypratice/services/customer_service.dart';
@@ -37,8 +38,11 @@ class ReservationListView extends StatelessWidget {
 
   Widget reservationTile(BuildContext context, ReservationModel reservation) {
     return ListTile(
-      onTap: () {},
-      leading: const Icon(Icons.pets),
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (p0) => ReservationDetailView(reservation)));
+      },
+      leading: const Icon(Icons.calendar_today),
       trailing: const Icon(Icons.arrow_forward_ios),
       title: Text(
           '${reservation.customerId.toCustomer().name} || ${reservation.veterinarianId.toVeterinarian().name}'),
