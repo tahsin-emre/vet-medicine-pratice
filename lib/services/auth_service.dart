@@ -36,4 +36,8 @@ class AuthService {
     VeterinarianService.veterinarianList.clear();
     UserModel.logout();
   }
+
+  static Future forgotPass(String email) async {
+    await auth.sendPasswordResetEmail(email: email);
+  }
 }

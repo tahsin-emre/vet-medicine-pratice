@@ -10,7 +10,7 @@ class ReservationDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Veterinarian Details')),
+      appBar: AppBar(title: const Text('Reservation Details')),
       body: ScreenTypeLayout.builder(
         mobile: (p0) => mobile(p0),
         desktop: (p0) => Row(

@@ -4,6 +4,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:veterinarypratice/enums/result.dart';
 import 'package:veterinarypratice/modules/auth/vm/login_vm.dart';
 import 'package:veterinarypratice/modules/home/view/home_v.dart';
+import 'package:veterinarypratice/services/auth_service.dart';
 import 'package:veterinarypratice/ui/mywid_loading.dart';
 import 'package:veterinarypratice/ui/mywid_snack.dart';
 import 'package:veterinarypratice/ui/mywid_tf.dart';
@@ -47,7 +48,28 @@ class LoginView extends StatelessWidget {
                   Row(
                     children: [
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (diaCont) {
+                                return AlertDialog(
+                                  content: myWidTF(vm.emailCont, 'E-Mail'),
+                                  actions: [
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          AuthService.forgotPass(vm.emailCont.text).then((value) {
+                                            Navigator.pop(diaCont);
+                                            ScaffoldMessenger.of(context).showSnackBar(
+                                                const SnackBar(
+                                                    content: Text(
+                                                        'Password reset email has been sent.')));
+                                          });
+                                        },
+                                        child: const Text('Send Mail'))
+                                  ],
+                                );
+                              });
+                        },
                         child: const Text('Forgot My Password'),
                       ),
                     ],
