@@ -14,18 +14,20 @@ class VeterinarianListView extends StatelessWidget {
   Widget build(BuildContext context) {
     vm.setData();
     return Observer(builder: (_) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            queryText(),
-            addVeterinarian(context),
-            vm.isLoading
-                ? myWidLoading()
-                : Column(
-                    children: [...vm.veterinarians.map((e) => veterinarianTile(context, e))],
+      return Column(
+        children: [
+          queryText(),
+          addVeterinarian(context),
+          vm.isLoading
+              ? myWidLoading()
+              : Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [...vm.veterinarians.map((e) => veterinarianTile(context, e))],
+                    ),
                   ),
-          ],
-        ),
+                ),
+        ],
       );
     });
   }

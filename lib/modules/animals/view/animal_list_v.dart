@@ -19,18 +19,20 @@ class AnimalListView extends StatelessWidget {
   Widget build(BuildContext context) {
     vm.setData();
     return Observer(builder: (_) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            queryText(),
-            addAnimal(context),
-            vm.isLoading
-                ? myWidLoading()
-                : Column(
-                    children: [...vm.animals.map((e) => animalTile(context, e))],
+      return Column(
+        children: [
+          queryText(),
+          addAnimal(context),
+          vm.isLoading
+              ? myWidLoading()
+              : Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [...vm.animals.map((e) => animalTile(context, e))],
+                    ),
                   ),
-          ],
-        ),
+                ),
+        ],
       );
     });
   }

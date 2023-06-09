@@ -27,8 +27,12 @@ class ReservationListView extends StatelessWidget {
             addReservation(context),
             vm.isLoading
                 ? myWidLoading()
-                : Column(
-                    children: [...vm.reservations.map((e) => reservationTile(context, e))],
+                : Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [...vm.reservations.map((e) => reservationTile(context, e))],
+                      ),
+                    ),
                   ),
           ],
         ),
