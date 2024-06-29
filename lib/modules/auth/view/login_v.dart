@@ -19,7 +19,7 @@ class LoginView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Veterinary Medicine'),
+        title: const Text('Veteriner Kliniği'),
       ),
       body: ScreenTypeLayout.builder(
         mobile: (context) => mobile(context),
@@ -40,11 +40,11 @@ class LoginView extends StatelessWidget {
             : Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('LOGIN TO YOUR ACCOUNT',
+                  const Text('Hesabınıza Giriş Yapın',
                       style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 10),
                   myWidTF(vm.emailCont, 'E-Mail'),
-                  myWidTF(vm.passCont, 'Password'),
+                  myWidTF(vm.passCont, 'Şifre'),
                   Row(
                     children: [
                       TextButton(
@@ -61,16 +61,16 @@ class LoginView extends StatelessWidget {
                                             Navigator.pop(diaCont);
                                             ScaffoldMessenger.of(context).showSnackBar(
                                                 const SnackBar(
-                                                    content: Text(
-                                                        'Password reset email has been sent.')));
+                                                    content:
+                                                        Text('Şifre Sıfırlama Maili Gönderildi')));
                                           });
                                         },
-                                        child: const Text('Send Mail'))
+                                        child: const Text('Mail Gönder'))
                                   ],
                                 );
                               });
                         },
-                        child: const Text('Forgot My Password'),
+                        child: const Text('Şifremi Unuttum'),
                       ),
                     ],
                   ),
@@ -78,7 +78,7 @@ class LoginView extends StatelessWidget {
                     onPressed: () {
                       vm.login().then((value) {
                         if (value == Result.error) {
-                          showSnack(context, 'E-Mail and Password does not match.');
+                          showSnack(context, 'E-Mail ve Şifre Eşleşmedi');
                         } else {
                           Navigator.pushAndRemoveUntil(
                               context,
@@ -88,7 +88,7 @@ class LoginView extends StatelessWidget {
                       });
                     },
                     icon: const Icon(Icons.arrow_forward_ios),
-                    label: const Text('Login'),
+                    label: const Text('Giriş Yap'),
                   )
                 ],
               );

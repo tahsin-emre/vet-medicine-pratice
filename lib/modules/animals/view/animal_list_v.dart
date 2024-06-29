@@ -61,7 +61,7 @@ class AnimalListView extends StatelessWidget {
               onChanged: (value) => vm.query(value),
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Write a name or customer..',
+                  hintText: 'Ne aramıştınız?',
                   prefixIcon: Icon(Icons.search, color: Colors.black)),
             ),
           ),
@@ -91,19 +91,19 @@ class AnimalListView extends StatelessWidget {
                       vm.addAnimal(animal);
                       Navigator.pop(diaCont);
                     },
-                    child: const Text('Save'),
+                    child: const Text('Kaydet'),
                   ),
                 ],
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    myWidTF(nameCont, 'Name'),
+                    myWidTF(nameCont, 'İsim'),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                       child: SearchField<CustomerModel>(
                         controller: ownerCont,
                         searchInputDecoration: const InputDecoration(
-                            border: OutlineInputBorder(), labelText: 'Customer'),
+                            border: OutlineInputBorder(), labelText: 'Müşteri'),
                         suggestions: [
                           ...CustomerService.customerList.map((e) => SearchFieldListItem(e.name,
                               child: Padding(
@@ -118,7 +118,7 @@ class AnimalListView extends StatelessWidget {
                       child: SearchField<String>(
                         controller: typeCont,
                         searchInputDecoration:
-                            const InputDecoration(border: OutlineInputBorder(), labelText: 'Type'),
+                            const InputDecoration(border: OutlineInputBorder(), labelText: 'Tür'),
                         suggestions: [
                           ...animalTypes.map((e) => SearchFieldListItem(e,
                               child: Padding(
@@ -135,7 +135,7 @@ class AnimalListView extends StatelessWidget {
         vm.setData();
       },
       leading: const Icon(Icons.add),
-      title: const Text('Add an Animal'),
+      title: const Text('Hayvan Ekle'),
     );
   }
 }

@@ -36,7 +36,7 @@ abstract class LoginVMBase with Store {
 
   @action
   void getPrefs() {
-    emailCont.text = AuthService.prefs!.getString('email') ?? 'telli@tahsinemre.com';
-    passCont.text = AuthService.prefs!.getString('password') ?? 'password';
+    emailCont.text = AuthService.prefs!.getString('email') ?? '';
+    passCont.text = AuthService.prefs!.getString('password') ?? '';
   }
 }

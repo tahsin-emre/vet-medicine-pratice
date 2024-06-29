@@ -17,20 +17,20 @@ class DashboardView extends StatelessWidget {
         Row(
           children: [
             Expanded(
-              child: detailBox('Customers', CustomerService.customerList.length),
+              child: detailBox('Müşteriler', CustomerService.customerList.length),
             ),
             Expanded(
-              child: detailBox('Animals', AnimalService.animalList.length),
+              child: detailBox('Hayvanlar', AnimalService.animalList.length),
             )
           ],
         ),
         Row(
           children: [
             Expanded(
-              child: detailBox('Veterinarians', VeterinarianService.veterinarianList.length),
+              child: detailBox('Veterinerler', VeterinarianService.veterinarianList.length),
             ),
             Expanded(
-              child: detailBox('Reservations', ReservationService.reservationList.length),
+              child: detailBox('Randevular', ReservationService.reservationList.length),
             )
           ],
         ),

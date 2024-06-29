@@ -56,7 +56,7 @@ class VeterinarianListView extends StatelessWidget {
               onChanged: (value) => vm.query(value),
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Write a name..',
+                  hintText: 'Ne aramıştınız?',
                   prefixIcon: Icon(Icons.search, color: Colors.black)),
             ),
           ),
@@ -80,13 +80,13 @@ class VeterinarianListView extends StatelessWidget {
                       vm.addVeterinarian(animal);
                       Navigator.pop(diaCont);
                     },
-                    child: const Text('Save'),
+                    child: const Text('Kaydet'),
                   ),
                 ],
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    myWidTF(nameCont, 'Name'),
+                    myWidTF(nameCont, 'İsim'),
                   ],
                 ),
               );
@@ -94,7 +94,7 @@ class VeterinarianListView extends StatelessWidget {
         vm.setData();
       },
       leading: const Icon(Icons.add),
-      title: const Text('Add a Veterinarian'),
+      title: const Text('Veteriner Ekle'),
     );
   }
 }

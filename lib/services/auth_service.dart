@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:veterinarypratice/enums/result.dart';
@@ -22,8 +24,11 @@ class AuthService {
       await auth.signInWithEmailAndPassword(email: email, password: pass);
       var data = await db.collection('accounts').doc(auth.currentUser!.uid).get();
       UserModel.fromDS(data);
+
       return Result.okay;
     } catch (e) {
+      log(e.toString());
+
       return Result.error;
     }
   }

@@ -5,7 +5,7 @@ Widget myWidTF(TextEditingController cont, String label) {
     padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
     child: TextField(
       controller: cont,
-      obscureText: label == 'Password',
+      obscureText: label == 'Şifre',
       decoration: InputDecoration(border: const OutlineInputBorder(), labelText: label),
     ),
   );

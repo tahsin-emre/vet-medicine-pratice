@@ -24,7 +24,7 @@ class CustomerDetailView extends StatelessWidget {
     vm.setAnimals();
     vm.setReservations();
     return Scaffold(
-      appBar: AppBar(title: const Text('Customer Details')),
+      appBar: AppBar(title: const Text('Müşteri Detayları')),
       body: ScreenTypeLayout.builder(
         mobile: (p0) => mobile(p0),
         desktop: (p0) => Row(
@@ -46,12 +46,12 @@ class CustomerDetailView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text('Details', style: TextStyle(fontSize: 20)),
+                    const Text('Detaylar', style: TextStyle(fontSize: 20)),
                     dataForm(customer.id, 'ID'),
-                    dataForm(customer.name, 'Name'),
-                    dataForm(customer.phone, 'Phone'),
+                    dataForm(customer.name, 'İsim'),
+                    dataForm(customer.phone, 'Telefon'),
                     dataForm(customer.email, 'E-Mail'),
-                    dataForm(customer.citizenId, 'Citizen Id'),
+                    dataForm(customer.citizenId, 'Kimlik No'),
                     const Divider(),
                     animals(_),
                     const Divider(),
@@ -79,7 +79,7 @@ class CustomerDetailView extends StatelessWidget {
   Widget animals(BuildContext context) {
     return Column(
       children: [
-        const Text('Animals', style: TextStyle(fontSize: 20)),
+        const Text('Hayvanlar', style: TextStyle(fontSize: 20)),
         addAnimal(context),
         ...vm.animals.where((element) => element.ownerId == customer.id).map((e) => animalTile(e)),
       ],
@@ -109,19 +109,19 @@ class CustomerDetailView extends StatelessWidget {
                           AnimalModel.fromUser(nameCont.text, typeCont.text, customer.id);
                       await vm.addAnimal(animal).then((value) => Navigator.pop(diaCont));
                     },
-                    child: const Text('Save'),
+                    child: const Text('Kaydet'),
                   ),
                 ],
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    myWidTF(nameCont, 'Name'),
+                    myWidTF(nameCont, 'İsim'),
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
                       child: SearchField<String>(
                         controller: typeCont,
                         searchInputDecoration:
-                            const InputDecoration(border: OutlineInputBorder(), labelText: 'Type'),
+                            const InputDecoration(border: OutlineInputBorder(), labelText: 'Tür'),
                         suggestions: [
                           ...animalTypes.map((e) => SearchFieldListItem(e,
                               child: Padding(
@@ -138,14 +138,14 @@ class CustomerDetailView extends StatelessWidget {
         vm.setAnimals();
       },
       leading: const Icon(Icons.add),
-      title: const Text('Add an Animal'),
+      title: const Text('Hayvan Ekle'),
     );
   }
 
   Widget reservations(BuildContext context) {
     return Column(
       children: [
-        const Text('Reservations', style: TextStyle(fontSize: 20)),
+        const Text('Randevular', style: TextStyle(fontSize: 20)),
         addReservation(context),
         ...vm.reservations
             .where((element) => element.customerId == customer.id)
@@ -183,7 +183,7 @@ class CustomerDetailView extends StatelessWidget {
                       vm.addReservation(reservation);
                       Navigator.pop(diaCont);
                     },
-                    child: const Text('Save'),
+                    child: const Text('Kaydet'),
                   ),
                 ],
                 content: Observer(builder: (_) {
@@ -195,7 +195,7 @@ class CustomerDetailView extends StatelessWidget {
                         child: SearchField<String>(
                           controller: veterinarianCont,
                           searchInputDecoration: const InputDecoration(
-                              border: OutlineInputBorder(), labelText: 'Veterinarian'),
+                              border: OutlineInputBorder(), labelText: 'Veteriner'),
                           suggestions: [
                             ...VeterinarianService.veterinarianList
                                 .map((e) => SearchFieldListItem(e.name,
@@ -211,7 +211,7 @@ class CustomerDetailView extends StatelessWidget {
                         child: SearchField<String>(
                           controller: animalCont,
                           searchInputDecoration: const InputDecoration(
-                              border: OutlineInputBorder(), labelText: 'Animal'),
+                              border: OutlineInputBorder(), labelText: 'Hayvan'),
                           suggestions: [
                             ...AnimalService.animalList
                                 .where((element) => element.ownerId == customer.id)
@@ -230,6 +230,7 @@ class CustomerDetailView extends StatelessWidget {
                               onPressed: () async {
                                 DateTime? myDate = await showDatePicker(
                                     context: context,
+                                    locale: const Locale('tr'),
                                     initialDate: DateTime.now(),
                                     firstDate: DateTime(2000),
                                     lastDate: DateTime(2100));
@@ -264,7 +265,7 @@ class CustomerDetailView extends StatelessWidget {
         vm.setReservations();
       },
       leading: const Icon(Icons.add),
-      title: const Text('Add a Reservation'),
+      title: const Text('Randevu Oluştur'),
     );
   }
 }

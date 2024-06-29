@@ -12,6 +12,6 @@ class VeterinarianModel {
 
   VeterinarianModel.fromUser(this.name);
   VeterinarianModel.none() {
-    name = 'Unregistered Veterinarian';
+    name = 'Kayıtsız Veteriner';
   }
 }

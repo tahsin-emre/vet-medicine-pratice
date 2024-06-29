@@ -20,22 +20,20 @@ class ReservationListView extends StatelessWidget {
   Widget build(BuildContext context) {
     vm.setData();
     return Observer(builder: (_) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            queryText(),
-            addReservation(context),
-            vm.isLoading
-                ? myWidLoading()
-                : Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [...vm.reservations.map((e) => reservationTile(context, e))],
-                      ),
+      return Column(
+        children: [
+          queryText(),
+          addReservation(context),
+          vm.isLoading
+              ? myWidLoading()
+              : Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [...vm.reservations.map((e) => reservationTile(context, e))],
                     ),
                   ),
-          ],
-        ),
+                ),
+        ],
       );
     });
   }
@@ -66,7 +64,7 @@ class ReservationListView extends StatelessWidget {
               onChanged: (value) => vm.query(value),
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Write a animal or customer or veterinarian or type..',
+                  hintText: 'Ne aramıştınız?',
                   prefixIcon: Icon(Icons.search, color: Colors.black)),
             ),
           ),
@@ -97,7 +95,7 @@ class ReservationListView extends StatelessWidget {
                       vm.addReservation(reservation);
                       Navigator.pop(diaCont);
                     },
-                    child: const Text('Save'),
+                    child: const Text('Kaydet'),
                   ),
                 ],
                 content: Observer(builder: (_) {
@@ -109,7 +107,7 @@ class ReservationListView extends StatelessWidget {
                         child: SearchField<CustomerModel>(
                           controller: customerCont,
                           searchInputDecoration: const InputDecoration(
-                              border: OutlineInputBorder(), labelText: 'Customer'),
+                              border: OutlineInputBorder(), labelText: 'Müşteri'),
                           suggestions: [
                             ...CustomerService.customerList.map((e) => SearchFieldListItem(e.name,
                                 child: Padding(
@@ -124,7 +122,7 @@ class ReservationListView extends StatelessWidget {
                         child: SearchField<String>(
                           controller: veterinarianCont,
                           searchInputDecoration: const InputDecoration(
-                              border: OutlineInputBorder(), labelText: 'Veterinarian'),
+                              border: OutlineInputBorder(), labelText: 'Veteriner'),
                           suggestions: [
                             ...VeterinarianService.veterinarianList
                                 .map((e) => SearchFieldListItem(e.name,
@@ -140,7 +138,7 @@ class ReservationListView extends StatelessWidget {
                         child: SearchField<String>(
                           controller: animalCont,
                           searchInputDecoration: const InputDecoration(
-                              border: OutlineInputBorder(), labelText: 'Animal'),
+                              border: OutlineInputBorder(), labelText: 'Hayvan'),
                           suggestions: [
                             ...AnimalService.animalList.map((e) => SearchFieldListItem(e.name,
                                 child: Padding(
@@ -158,6 +156,7 @@ class ReservationListView extends StatelessWidget {
                                 DateTime? myDate = await showDatePicker(
                                     context: context,
                                     initialDate: DateTime.now(),
+                                    locale: const Locale('tr'),
                                     firstDate: DateTime(2000),
                                     lastDate: DateTime(2100));
                                 vm.resDate = myDate ?? DateTime(2000);
@@ -191,7 +190,7 @@ class ReservationListView extends StatelessWidget {
         vm.setData();
       },
       leading: const Icon(Icons.add),
-      title: const Text('Add a Reservation'),
+      title: const Text('Randevu Oluştur'),
     );
   }
 }

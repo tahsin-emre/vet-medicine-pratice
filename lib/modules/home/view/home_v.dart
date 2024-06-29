@@ -19,7 +19,7 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const Text('Mock-Up Veterinary Medicine'),
+        title: const Text('Veteriner Kliniği'),
       ),
       drawer: ScreenTypeLayout.builder(
         mobile: (p0) => drawer(),
@@ -69,11 +69,11 @@ class HomeView extends StatelessWidget {
         useIndicator: true,
         extended: true,
         destinations: [
-          navRailTile('Dashboard', Icons.dashboard),
-          navRailTile('Customers', Icons.people),
-          navRailTile('Animals', Icons.pets),
-          navRailTile('Veterinarians', Icons.health_and_safety),
-          navRailTile('Reservations', Icons.calendar_month),
+          navRailTile('Anasayfa', Icons.dashboard),
+          navRailTile('Müşteriler', Icons.people),
+          navRailTile('Hayvanlar', Icons.pets),
+          navRailTile('Veterinerler', Icons.health_and_safety),
+          navRailTile('Randevular', Icons.calendar_month),
         ],
         trailing: ElevatedButton.icon(
             icon: const Icon(Icons.power_settings_new),
@@ -81,7 +81,7 @@ class HomeView extends StatelessWidget {
               AuthService.logout().then((value) => Navigator.pushAndRemoveUntil(
                   _, MaterialPageRoute(builder: (cont) => LoginView()), (route) => false));
             },
-            label: const Text('Logout')),
+            label: const Text('Çıkış Yap')),
         selectedIndex: vm.index,
       );
     });

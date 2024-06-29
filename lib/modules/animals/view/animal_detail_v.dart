@@ -20,7 +20,7 @@ class AnimalDetailView extends StatelessWidget {
   Widget build(BuildContext context) {
     vm.setReservations();
     return Scaffold(
-      appBar: AppBar(title: const Text('Animal Details')),
+      appBar: AppBar(title: const Text('Hayvan Detayları')),
       body: ScreenTypeLayout.builder(
         mobile: (p0) => mobile(p0),
         desktop: (p0) => Row(
@@ -42,10 +42,10 @@ class AnimalDetailView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text('Details', style: TextStyle(fontSize: 20)),
+                    const Text('Detaylar', style: TextStyle(fontSize: 20)),
                     dataForm(animal.id, 'ID'),
-                    dataForm(animal.name, 'Name'),
-                    dataForm(animal.type, 'Type'),
+                    dataForm(animal.name, 'İsim'),
+                    dataForm(animal.type, 'Tür'),
                     const Divider(),
                     customer(),
                     const Divider(),
@@ -74,11 +74,11 @@ class AnimalDetailView extends StatelessWidget {
     CustomerModel owner = animal.customer;
     return Column(
       children: [
-        const Text('Customer Info', style: TextStyle(fontSize: 20)),
-        dataForm(owner.name, 'Name'),
-        dataForm(owner.phone, 'Phone'),
+        const Text('Müşteri Bilgileri', style: TextStyle(fontSize: 20)),
+        dataForm(owner.name, 'İsim'),
+        dataForm(owner.phone, 'Telefon'),
         dataForm(owner.email, 'E-Mail'),
-        dataForm(owner.citizenId, 'Citizen Id'),
+        dataForm(owner.citizenId, 'Kimlik No'),
       ],
     );
   }
@@ -86,7 +86,7 @@ class AnimalDetailView extends StatelessWidget {
   Widget reservations(BuildContext context) {
     return Column(
       children: [
-        const Text('Reservations', style: TextStyle(fontSize: 20)),
+        const Text('Randevular', style: TextStyle(fontSize: 20)),
         addReservation(context),
         ...vm.reservations
             .where((element) => element.animalId == animal.id)
@@ -122,7 +122,7 @@ class AnimalDetailView extends StatelessWidget {
                       vm.addReservation(reservation);
                       Navigator.pop(diaCont);
                     },
-                    child: const Text('Save'),
+                    child: const Text('Kaydet'),
                   ),
                 ],
                 content: Observer(builder: (_) {
@@ -134,7 +134,7 @@ class AnimalDetailView extends StatelessWidget {
                         child: SearchField<String>(
                           controller: veterinarianCont,
                           searchInputDecoration: const InputDecoration(
-                              border: OutlineInputBorder(), labelText: 'Veterinarian'),
+                              border: OutlineInputBorder(), labelText: 'Veteriner'),
                           suggestions: [
                             ...VeterinarianService.veterinarianList
                                 .map((e) => SearchFieldListItem(e.name,
@@ -152,6 +152,7 @@ class AnimalDetailView extends StatelessWidget {
                               onPressed: () async {
                                 DateTime? myDate = await showDatePicker(
                                     context: context,
+                                    locale: const Locale('tr'),
                                     initialDate: DateTime.now(),
                                     firstDate: DateTime(2000),
                                     lastDate: DateTime(2100));
@@ -186,7 +187,7 @@ class AnimalDetailView extends StatelessWidget {
         vm.setReservations();
       },
       leading: const Icon(Icons.add),
-      title: const Text('Add a Reservation'),
+      title: const Text('Randevu Oluştur'),
     );
   }
 }

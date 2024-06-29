@@ -68,15 +68,15 @@ class CustomerListView extends StatelessWidget {
                       vm.addCustomer(customer);
                       Navigator.pop(diaCont);
                     },
-                    child: const Text('Save'),
+                    child: const Text('Kaydet'),
                   ),
                 ],
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    myWidTF(nameCont, 'Name'),
-                    myWidTF(phoneCont, 'Phone'),
-                    myWidTF(citizenCont, 'Citizen Id'),
+                    myWidTF(nameCont, 'İsim'),
+                    myWidTF(phoneCont, 'Telefon'),
+                    myWidTF(citizenCont, 'Kimlik No'),
                     myWidTF(emailCont, 'E-Mail'),
                   ],
                 ),
@@ -85,7 +85,7 @@ class CustomerListView extends StatelessWidget {
         vm.setData();
       },
       leading: const Icon(Icons.add),
-      title: const Text('Add a Customer'),
+      title: const Text('Müşteri Ekle'),
     );
   }
 
@@ -103,7 +103,7 @@ class CustomerListView extends StatelessWidget {
               },
               decoration: const InputDecoration(
                   border: OutlineInputBorder(),
-                  hintText: 'Write a name or phone..',
+                  hintText: 'Ne aramıştınız?',
                   prefixIcon: Icon(Icons.search, color: Colors.black)),
             ),
           ),

@@ -10,7 +10,7 @@ class ReservationDetailView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Reservation Details')),
+      appBar: AppBar(title: const Text('Randevu Detayları')),
       body: ScreenTypeLayout.builder(
         mobile: (p0) => mobile(p0),
         desktop: (p0) => Row(
@@ -29,11 +29,11 @@ class ReservationDetailView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text('Details', style: TextStyle(fontSize: 20)),
+          const Text('Detaylar', style: TextStyle(fontSize: 20)),
           dataForm(reservation.id, 'ID'),
-          dataForm(reservation.veterinarianId.toVeterinarian().name, 'Veterinarian Name'),
-          dataForm(reservation.customerId.toCustomer().name, 'Customer Name'),
-          dataForm(reservation.animalId.toAnimal().name, 'Animal Name'),
+          dataForm(reservation.veterinarianId.toVeterinarian().name, 'Veteriner İsmi'),
+          dataForm(reservation.customerId.toCustomer().name, 'Müşteri İsmi'),
+          dataForm(reservation.animalId.toAnimal().name, 'Hayvan İsmi'),
         ],
       ),
     ));
